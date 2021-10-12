@@ -16,55 +16,38 @@ class Contact {
     zip;
     phoneNumber;
     email;
-
     //constructor
     constructor(firstName, lastName, address, city, state, zip, phoneNumber, email) {
-        if (!NAME_REGEX_PATTERN.test(firstName)) {
-            console.log('Please enter valid firstname.');
-        }
-        else {
+        if (!NAME_REGEX_PATTERN.test(firstName)) throw 'Please enter valid firstname.'
+        {
             this.firstName = firstName;
         }
-        if (!NAME_REGEX_PATTERN.test(lastName)) {
-            console.log('Please enter valid lastname.');
-        }
-        else {
+        if (!NAME_REGEX_PATTERN.test(lastName)) throw 'Please enter valid lastname.'
+        {
             this.lastName = lastName;
         }
-        if (!ADDRESS_REGEX_PATTERN.test(address)) {
-            console.log('Please enter valid address.');
-        }
-        else {
+        if (!ADDRESS_REGEX_PATTERN.test(address)) throw 'Please enter valid address.'
+        {
             this.address = address;
         }
-        if (!ADDRESS_REGEX_PATTERN.test(city)) {
-            console.log('Please enter valid city.');
-        }
-        else {
+        if (!ADDRESS_REGEX_PATTERN.test(city)) throw 'Please enter valid city.'
+        {
             this.city = city;
         }
-        if (!ADDRESS_REGEX_PATTERN.test(state)) {
-            console.log('Please enter valid state.');
-        }
-        else {
+        if (!ADDRESS_REGEX_PATTERN.test(state)) throw 'Please enter valid state.'
+        {
             this.state = state;
         }
-        if (!PINCODE_REGEX_PATTERN.test(zip)) {
-            console.log('Please enter valid pincode.');
-        }
-        else {
+        if (!PINCODE_REGEX_PATTERN.test(zip)) throw 'Please enter valid pincode.'
+        {
             this.zip = zip;
         }
-        if (!PHONE_NUMBER_PATTERN.test(phoneNumber)) {
-            console.log('Please enter valid phone number.');
-        }
-        else {
+        if (!PHONE_NUMBER_PATTERN.test(phoneNumber)) throw 'Please enter valid phone number.'
+        {
             this.phoneNumber = phoneNumber;
         }
-        if (!EMAIL_REGEX_PATTERN.test(email)) {
-            console.log('Please enter valid email ID.');
-        }
-        else {
+        if (!EMAIL_REGEX_PATTERN.test(email)) throw 'Please enter valid email ID.'
+        {
             this.email = email;
         }
     }
@@ -78,7 +61,6 @@ class Contact {
             " State: " + this.state + " Zip: " + this.zip + " Phone Number: " + this.phoneNumber + " Email: " + this.email;
     }
 }
-
 function addContacts() {
     let FirstName = prompt("Enter Firstname: ");
     let LastName = prompt("Enter Lastname: ");
@@ -100,7 +82,6 @@ function addContacts() {
         console.log(e);
     }
 }
-
 function findContact(userData) {
     let contactToEdit;
     for (let i = 0; i < addressBookArray.length; i++) {
@@ -147,7 +128,6 @@ function findContact(userData) {
         }
     }
 }
-
 let deletContact = () => {
     if (addressBookArray.length == 0) {
         console.log("No contact in the list");
@@ -161,7 +141,7 @@ let deletContact = () => {
         console.log("Contact is deleleted in Addressbook.")
     }
 }
-//searching contact in city or state
+//searching and viewing contact in city or state
 function searchByCityState(place, choice) {
     let contacts = new Array();
     if (choice == 1) {
@@ -171,80 +151,85 @@ function searchByCityState(place, choice) {
         contacts = addressBookArray.filter(contact => contact.state === place)
     }
     console.log("Contact: ", contacts);
-
-    //count contact in city or state
-function countByCityState(place, countChoice){
-    let contacts = new Array();
-    if(countChoice == 1){
-        console.log("Contacts in "+place+" city are: ",addressBookArray.filter(contact=>contact.city==place).reduce(contacts=>contacts+1,0));
-    }
-    if(countChoice == 2){
-        console.log("Contacts in "+place+" state are: ",addressBookArray.filter(contact=>contact.state==place).reduce(contacts=>contacts+1,0));
-    }
 }
+//count contact in city or state
+function countByCityState(place, countChoice) {
+    let contacts = new Array();
+    if (countChoice == 1) {
+        console.log("Contacts in " + place + " city are: ", addressBookArray.filter(contact => contact.city == place).reduce(contacts => contacts + 1, 0));
+    }
+    if (countChoice == 2) {
+        console.log("Contacts in " + place + " state are: ", addressBookArray.filter(contact => contact.state == place).reduce(contacts => contacts + 1, 0));
+    }
 }
 //array to store contacts
-const addressBookArray = new Array();
+let addressBookArray = new Array();
 let countEntry = 0;
 do {
     console.log("\nPress: 1) Add Contact 2) Edit Contact 3) View Contact");
     console.log("\t4) Delete Contact 5) Number of Contacts");
     console.log("\t6) Search contact by city or state 7) View contact by city or state");
-    console.log("\t8) Count Contacts by city or state 0)Exit: ");
+    console.log("\t8) Count Contacts by city or state 9) Sort By Name 0)Exit: ");
     countEntry = Number(prompt("Enter your choice: "));
-    if(countEntry == 1){
+    if (countEntry == 1) {
         addContacts();
     }
-    if(countEntry == 2){
-        if(addressBookArray.length==0){
+    if (countEntry == 2) {
+        if (addressBookArray.length == 0) {
             console.log("No contacts in Addressbook.");
         }
         let userData = prompt("Enter the contact firstname which you want to edit: ");
-        findContact(userData); 
+        findContact(userData);
     }
-    if(countEntry == 3){
-        console.log(addressBookArray+"\n");
+    if (countEntry == 3) {
+        for (let i = 0; i < addressBookArray.length; i++)
+            console.log(addressBookArray[i].toString(), "\n");
     }
-    if(countEntry == 4){
+    if (countEntry == 4) {
         deletContact();
     }
-    if(countEntry == 5){
-        console.log("Number of Contacts: "+addressBookArray.reduce(contacts=>contacts+1,0));
+    if (countEntry == 5) {
+        console.log("Number of Contacts: " + addressBookArray.reduce(contacts => contacts + 1, 0));
     }
-    if(countEntry == 6){
+    if (countEntry == 6) {
         console.log("1.) Search By City     2.) Search By State");
         let choice = Number(prompt("Enter your choice: "));
-        switch (choice){
+        switch (choice) {
             case 1: let city = prompt("Enter the city name: ");
-                    searchByCityState(city, 1);
-                    break;
+                searchByCityState(city, 1);
+                break;
             case 2: let state = prompt("Enter the state name: ");
-                    searchByCityState(state, 2);
-                    break;
+                searchByCityState(state, 2);
+                break;
         }
     }
-    if(countEntry == 7){
+    if (countEntry == 7) {
         console.log("1.) View By City     2.) View By State");
         let choose = Number(prompt("Enter your choice: "));
-        switch (choose){
+        switch (choose) {
             case 1: let city = prompt("Enter the city name: ");
-                    searchByCityState(city, 1);
-                    break;
+                searchByCityState(city, 1);
+                break;
             case 2: let state = prompt("Enter the state name: ");
-                    searchByCityState(state, 2);
-                    break;
+                searchByCityState(state, 2);
+                break;
         }
     }
-    if(countEntry == 8){
+    if (countEntry == 8) {
         console.log("1.) Count By City     2.) Count By State");
         let countChoice = Number(prompt("Enter your choice: "));
-        switch (countChoice){
+        switch (countChoice) {
             case 1: let city = prompt("Enter the city name: ");
-                    countByCityState(city, 1);
-                    break;
+                countByCityState(city, 1);
+                break;
             case 2: let state = prompt("Enter the state name: ");
-                    countByCityState(state, 2);
-                    break;
+                countByCityState(state, 2);
+                break;
         }
     }
-}while(countEntry != 0);
+    if (countEntry == 9) {
+        addressBookArray.sort();
+        for (let i = 0; i < addressBookArray.length; i++)
+            console.log(addressBookArray[i].toString(), "\n");
+    }
+} while (countEntry != 0);
