@@ -171,56 +171,80 @@ function searchByCityState(place, choice) {
         contacts = addressBookArray.filter(contact => contact.state === place)
     }
     console.log("Contact: ", contacts);
+
+    //count contact in city or state
+function countByCityState(place, countChoice){
+    let contacts = new Array();
+    if(countChoice == 1){
+        console.log("Contacts in "+place+" city are: ",addressBookArray.filter(contact=>contact.city==place).reduce(contacts=>contacts+1,0));
+    }
+    if(countChoice == 2){
+        console.log("Contacts in "+place+" state are: ",addressBookArray.filter(contact=>contact.state==place).reduce(contacts=>contacts+1,0));
+    }
+}
 }
 //array to store contacts
 const addressBookArray = new Array();
 let countEntry = 0;
 do {
-    console.log("\nPress: 1) Add Contact 2) Edit Contact 3) View Contact ");
-    console.log("\t4) Delete Contact 5) Number of Contacts 6) Search contact by city or state ");
-    console.log("\t7) View contact by city or state 0)Exit: ");
+    console.log("\nPress: 1) Add Contact 2) Edit Contact 3) View Contact");
+    console.log("\t4) Delete Contact 5) Number of Contacts");
+    console.log("\t6) Search contact by city or state 7) View contact by city or state");
+    console.log("\t8) Count Contacts by city or state 0)Exit: ");
     countEntry = Number(prompt("Enter your choice: "));
-    if (countEntry == 1) {
+    if(countEntry == 1){
         addContacts();
     }
-    if (countEntry == 2) {
-        if (addressBookArray.length == 0) {
+    if(countEntry == 2){
+        if(addressBookArray.length==0){
             console.log("No contacts in Addressbook.");
         }
         let userData = prompt("Enter the contact firstname which you want to edit: ");
-        findContact(userData);
+        findContact(userData); 
     }
-    if (countEntry == 3) {
-        console.log(addressBookArray + "\n");
+    if(countEntry == 3){
+        console.log(addressBookArray+"\n");
     }
-    if (countEntry == 4) {
+    if(countEntry == 4){
         deletContact();
     }
-    if (countEntry == 5) {
-        console.log("Number of Contacts: " + addressBookArray.reduce(contacts => contacts + 1, 0));
+    if(countEntry == 5){
+        console.log("Number of Contacts: "+addressBookArray.reduce(contacts=>contacts+1,0));
     }
-    if (countEntry == 6) {
+    if(countEntry == 6){
         console.log("1.) Search By City     2.) Search By State");
         let choice = Number(prompt("Enter your choice: "));
-        switch (choice) {
+        switch (choice){
             case 1: let city = prompt("Enter the city name: ");
-                searchByCityState(city, 1);
-                break;
+                    searchByCityState(city, 1);
+                    break;
             case 2: let state = prompt("Enter the state name: ");
-                searchByCityState(state, 2);
-                break;
+                    searchByCityState(state, 2);
+                    break;
         }
     }
-    if (countEntry == 7) {
+    if(countEntry == 7){
         console.log("1.) View By City     2.) View By State");
         let choose = Number(prompt("Enter your choice: "));
-        switch (choose) {
+        switch (choose){
             case 1: let city = prompt("Enter the city name: ");
-                searchByCityState(city, 1);
-                break;
+                    searchByCityState(city, 1);
+                    break;
             case 2: let state = prompt("Enter the state name: ");
-                searchByCityState(state, 2);
-                break;
+                    searchByCityState(state, 2);
+                    break;
         }
     }
-} while (countEntry != 0);
+    if(countEntry == 8){
+        console.log("1.) Count By City     2.) Count By State");
+        let countChoice = Number(prompt("Enter your choice: "));
+        switch (countChoice){
+            case 1: let city = prompt("Enter the city name: ");
+                    countByCityState(city, 1);
+                    break;
+            case 2: let state = prompt("Enter the state name: ");
+                    countByCityState(state, 2);
+                    break;
+        }
+    }
+}while(countEntry != 0);
