@@ -161,30 +161,51 @@ let deletContact = () => {
         console.log("Contact is deleleted in Addressbook.")
     }
 }
-
+//searching contact in city or state
+function searchByCityState(place, choice){
+    let contacts = new Array();
+    if(choice == 1){
+        contacts = addressBookArray.filter(contact => contact.city === place)
+    }
+    if(choice == 2){
+        contacts = addressBookArray.filter(contact => contact.state === place)
+    }
+    console.log("Contact found: ",contacts);
+}
 //array to store contacts
 let addressBookArray = new Array();
 let countEntry = 0;
 do {
-    countEntry = prompt("Press 1) Add Contact 2) Edit Contact 3) View Contact 4) Delete Contact 5) Number of Contacts 0) Exit: ");
-    if (countEntry == 1) {
+    countEntry = prompt("Press 1) Add Contact 2) Edit Contact 3) View Contact 4) Delete Contact \n\t5) Number of Contacts 6) search contact by city or state 0)Exit: ");
+    if(countEntry == 1){
         addContacts();
     }
-    if (countEntry == 2) {
-        if (addressBookArray.length == 0) {
-            console.log("No contacts");
+    if(countEntry == 2){
+        if(addressBookArray.length==0){
             console.log("No contacts in Addressbook.");
         }
         let userData = prompt("Enter the contact firstname which you want to edit: ");
-        findContact(userData);
+        findContact(userData); 
     }
-    if (countEntry == 3) {
-        console.log(addressBookArray.toString() + "\n");
+    if(countEntry == 3){
+        console.log(addressBookArray.toString()+"\n");
     }
-    if (countEntry == 4) {
+    if(countEntry == 4){
         deletContact();
     }
-    if (countEntry == 5) {
-        console.log("Number of Contacts: " + addressBookArray.reduce(contacts => contacts + 1, 0));
+    if(countEntry == 5){
+        console.log("Number of Contacts: "+addressBookArray.reduce(contacts=>contacts+1,0));
     }
-} while (countEntry != 0);
+    if(countEntry == 6){
+        console.log("1.) Search By City     2.) Search By State");
+        let choice = Number(prompt("Enter your choice: "));
+        switch (choice){
+            case 1: let city = prompt("Enter the city name: ");
+                    searchByCityState(city, 1);
+                    break;
+            case 2: let state = prompt("Enter the state name: ");
+                    searchByCityState(state, 2);
+                    break;
+        }
+    }
+}while(countEntry != 0);
