@@ -144,7 +144,7 @@ let deletContact=()=>{
 let addressBookArray = new Array();
 let countEntry = 0;
 do{
-    countEntry = prompt("Press 1) Add Contact 2) Edit Contact 3) View Contact 4) Delete Contact 0) Exit: ");
+    countEntry = prompt("Press 1) Add Contact 2) Edit Contact 3) View Contact 4) Delete Contact 5) Number of Contacts 0) Exit: ");
     if(countEntry == 1){
         let FirstName = prompt("Enter Firstname: ");
         let LastName = prompt("Enter Lastname: ");
@@ -174,5 +174,8 @@ do{
     }
     if(countEntry == 4){
         deletContact();
+    }
+    if(countEntry == 5){
+        console.log("Number of Contacts: "+addressBookArray.reduce(contacts=>contacts+1,0));
     }
 }while(countEntry != 0);
